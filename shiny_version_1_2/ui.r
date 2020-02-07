@@ -21,7 +21,7 @@ tabsetPanel(
   
   radioButtons(inputId = "assembly_version", 
                  choices=c("SL3.0, ITAG3.2" = "SL3",
-						   "SL4.0, ITAG4.0" = "SL4"),
+			   "SL4.0, ITAG4.0" = "SL4"),
                  inline=TRUE,
                  label = "Assembly version:"),
      
@@ -44,9 +44,9 @@ tabsetPanel(
 				condition = "output.flag_1 == true", 
 					plotOutput("barplot_gene1",height = "300px"),
 					
-				  checkboxInput(inputId = "order_bars_by_genotypes",
-				  label = "Order bars by genotypes",
-				  value = FALSE),
+					  checkboxInput(inputId = "order_bars_by_genotypes",
+				    			label = "Order bars by genotypes",
+				  			value = FALSE),
 					),
 	
 	br(),
@@ -108,15 +108,16 @@ mainPanel(
 	                                    "raw counts" = "raw counts"),
 	                        selected = "KNN-norm.",
 	                        label = "Expression values:",
-							inline = TRUE
+				inline = TRUE
 	   ),
 	
 	fluidRow(
-	column(3, sliderInput(inputId = "min_mer",post = "k UMIs",
-	            label = "Min. meristem coverage:",
-	            min=100,
-	            max=1000,
-	            value = 100)),
+	column(3, sliderInput(inputId = "min_mer",
+			      post = "k UMIs",
+	            	      label = "Min. meristem coverage:",
+	            	      min=100,
+	            	      max=1000,
+	            	      value = 100)),
 	
 	column(3, sliderInput(inputId = "smooth_n",
 				 label = "# Meristems to smooth:",
@@ -127,8 +128,8 @@ mainPanel(
 	
 	awesomeCheckboxGroup(inputId = "order_plot_feats",
 						choices = c("Comparative mode" = "plot_bg",
-									"Show trend" = "trend_bool",
-									"Fixed scales (by 1st gene)" = "fixed_ylim"),
+							    "Show trend" = "trend_bool",
+							    "Fixed scales" = "fixed_ylim"),
 						label="",
 						status = "primary",
 						inline = TRUE),
@@ -157,11 +158,12 @@ mainPanel(
 		sidebarPanel(
 			
 		  textInput(inputId = "gene_corr",
-			  label = "Insert gene name to compute correlation:",
-			  value = "",
-			  placeholder = "SolycXXgYYYYYY"),
+			    label = "Insert gene name to compute correlation:",
+			    value = "",
+			    placeholder = "SolycXXgYYYYYY"),
 			
-			h5(textOutput("caption_corr"),align="center"),
+			h5(textOutput("caption_corr"),
+			   align="center"),
 			br(),
 			
 
@@ -214,24 +216,26 @@ mainPanel(
 			fluidRow(
 			column(4, awesomeCheckboxGroup(inputId = "genotype_xy2",
 										   choices=c("WT" = "wt_xy",
-													 "dst" = "dst_xy",
-													 "sft" = "sft_xy",
-													 "dst;sft" = "dstsft_xy",
-													 "uf" = "uf_xy"),
+											     "dst" = "dst_xy",
+											     "sft" = "sft_xy",
+											     "dst;sft" = "dstsft_xy",
+											     "uf" = "uf_xy"),
 											selected="wt_xy",
-											label = "Add meristems to plot:",status = "primary",inline = TRUE), 
+											label = "Add meristems to plot:",
+						       					status = "primary",
+						       					inline = TRUE), 
 				   align = "left"),
 	   
 			column(4, sliderInput(inputId = "min_xy",post = "k UMIs",
-								  label = "Min. meristem coverage:",
-								  min=100,
-								  max=1000,
-								  value = 100), 
+								 label = "Min. meristem coverage:",
+								 min=100,
+								 max=1000,
+								 value = 100), 
 				   align = "left"),
 	   
 			column(4,awesomeCheckboxGroup(inputId = "scatter_features",
 										  choices=c(#"grid" = "xy_grid",
-													"log-norm" = "xy_log"),
+											    "log-norm" = "xy_log"),
 										  selected=NULL,
 										  label = "",status = "info",inline = TRUE),
 				   align = "left")
