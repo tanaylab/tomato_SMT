@@ -18,61 +18,48 @@ cat(paste0(pryr::mem_used(),"..\n"))
 require(gplots)
 cat(paste0(pryr::mem_used(),"..\n"))
 
-#source("/net/mraid14/export/data/users/zoharme/tomato_Sc/scripts/shiny/smer_shiny_functions.r")
+
+# load source functions
 source("./Data/smer_shiny_functions.r")
-#source("/net/mraid14/export/data/users/zoharme/tomato_Sc/scripts/smer_functions.r")
 
+# load expression matrices
 cat(paste0(pryr::mem_used(),"..\n"))
-cat("loading expression matrices..\n")
-load("./Data/expression_matrices.Rda")
+cat("loading expression matrices (part1)..\n")
+load("./Data/expression_matrices_part1.Rda")
 cat(paste0(pryr::mem_used(),"..\n"))
-
+cat("loading expression matrices (part2)..\n")
+load("./Data/expression_matrices_part2.Rda")
+cat(paste0(pryr::mem_used(),"..\n"))
+#
 cat("loading semi-downsampled matrix..\n")
 load("./Data/semiDownsampled_matrix.Rda")
 cat(paste0(pryr::mem_used(),"..\n"))
-
-
 ##objects loaded:
 #smer_n = read.csv("Data/..)
 #smer_umi = read.csv("Data/..)
 #smer_md = read.csv("Data/..)
 #smer_squeezed_meristems (maximal 2e6 UMIs per meristem)
-#1#cat(paste0(pryr::mem_used(),"..\n"))
-#1#cat("loading correlation matrices (part1)..\n")
+###################################
 
-#load("/net/mraid14/export/data/users/zoharme/tomato_Sc/scripts/shiny/smer_cor_objects.Rda")
-#load("/net/mraid14/export/data/users/zoharme/tomato_Sc/scripts/shiny/am_cor.Rda")
-#load("./Data/smer_cor_objects.Rda")
 
-#load("./Data/am_cor.Rda")
-#load("./Data/am_cor_part1.Rda")
-load("./Data/corr_objects.Rda")
+# Loading tables with gene-gene correlations
+cat("loading gene correlations (part1)..\n")
+load("./Data/corr_objects_part1.Rda")
 cat(paste0(pryr::mem_used(),"..\n"))
-##loading 15 objects:
-# WT, sft and dst bottom+top 100 corr genes for every gene, as well as total gene expression for filtering
 #
+cat("loading gene correlations (part2)..\n")
+load("./Data/corr_objects_part2.Rda")
+cat(paste0(pryr::mem_used(),"..\n"))
+####
 
 flag_plot1=FALSE 
-#smer_n = shiny_n
-#smer_md = shiny_md
-#smer_umi = shiny_umis
-#smer_knn = shiny_knn
 cat("DONE!\n")
+##### finsihed loading #####
 
-# Define server logic required to summarize and view the selected dataset
+
+
 shinyServer(function(input, output) {
 
-
-  # The output$caption is computed based on a reactive expression that
-  # returns input$caption. When the user changes the "caption" field:
-  #
-  #  1) This expression is automatically called to recompute the output 
-  #  2) The new caption is pushed back to the browser for re-display
-  # 
-  # Note that because the data-oriented reactive expressions below don't 
-  # depend on input$caption, those expressions are NOT called when 
-  # input$caption changes.
-   # depend on order algorithm, select meristems
   meristem_genotype_Input1 <- reactive({
     switch(input$genotype_meristems1,
            "WT" = rownames(smer_md)[smer_md$genotype=="WT"],
